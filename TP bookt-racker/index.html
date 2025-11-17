@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 My Reading Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
+    <!-- Header avec gradient -->
+    <header class="gradient-bg text-white py-12 shadow-2xl">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-5xl font-bold mb-2">📖 My Reading Journey</h1>
+                    <p class="text-purple-100 text-lg">Track your literary adventures</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-purple-200">Version 2.0</p>
+                    <p class="text-xs text-purple-300">By Student</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-10">
+        <!-- Dashboard Stats -->
+        <div class="mb-10">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">📊 Reading Dashboard</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-r from-green-400 to-green-600 p-6 rounded-2xl shadow-lg text-white card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-100 text-sm font-medium">Books Finished</p>
+                            <p class="text-4xl font-bold mt-2" id="statsFinished">0</p>
+                        </div>
+                        <div class="text-5xl opacity-50">✓</div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-blue-400 to-blue-600 p-6 rounded-2xl shadow-lg text-white card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100 text-sm font-medium">Pages Read</p>
+                            <p class="text-4xl font-bold mt-2" id="statsPagesRead">0</p>
+                        </div>
+                        <div class="text-5xl opacity-50">📄</div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-400 to-orange-600 p-6 rounded-2xl shadow-lg text-white card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-orange-100 text-sm font-medium">In Progress</p>
+                            <p class="text-4xl font-bold mt-2" id="statsInProgress">0</p>
+                        </div>
+                        <div class="text-5xl opacity-50">📚</div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-purple-400 to-purple-600 p-6 rounded-2xl shadow-lg text-white card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-100 text-sm font-medium">Total Books</p>
+                            <p class="text-4xl font-bold mt-2" id="statsTotal">0</p>
+                        </div>
+                        <div class="text-5xl opacity-50">📖</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Formulaire d'ajout -->
+            <div>
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl mr-3">➕</span>
+                        <h2 class="text-3xl font-bold text-gray-800">Add New Book</h2>
+                    </div>
+                    
+                    <form id="addBookForm" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">📕 Book Title</label>
+                                <input type="text" id="bookTitle" required 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition"
+                                    placeholder="Enter book title">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">✍️ Author Name</label>
+                                <input type="text" id="bookAuthor" required 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition"
+                                    placeholder="Enter author name">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">📄 Total Pages</label>
+                                <input type="number" id="totalPages" required min="1" 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">📖 Pages Completed</label>
+                                <input type="number" id="readPages" value="0" min="0" 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">🏷️ Reading Status</label>
+                                <select id="bookStatus" required 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition">
+                                    <option value="Want to read">Want to read</option>
+                                    <option value="Currently reading">Currently reading</option>
+                                    <option value="Read">Read</option>
+                                    <option value="Re-read">Re-read</option>
+                                    <option value="DNF">DNF</option>
+                                    <option value="Returned Unread">Returned Unread</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">📱 Book Format</label>
+                                <select id="bookFormat" required 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition">
+                                    <option value="Print">Print</option>
+                                    <option value="PDF">PDF</option>
+                                    <option value="Ebook">Ebook</option>
+                                    <option value="AudioBook">AudioBook</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">💰 Price (€)</label>
+                                <input type="number" id="bookPrice" value="0" min="0" step="0.01" 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">💡 Recommended By</label>
+                                <input type="text" id="recommendedBy" 
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition"
+                                    placeholder="Optional">
+                            </div>
+                        </div>
+
+                        <button type="submit" 
+                            class="w-full gradient-bg text-white py-4 px-6 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105">
+                            ✨ Add to My Library
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Liste des livres -->
+            <div>
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <span class="text-4xl mr-3">📚</span>
+                            <h2 class="text-3xl font-bold text-gray-800">My Library</h2>
+                        </div>
+                        <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-semibold" id="bookCount">0 books</span>
+                    </div>
+                    
+                    <div id="libraryContainer" class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+                        <div class="text-center py-16 text-gray-400">
+                            <div class="text-6xl mb-4">📚</div>
+                            <p class="text-lg">Your library is empty</p>
+                            <p class="text-sm">Start adding books to track your reading!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Classes et fonctions
+        class ReadingBook {
+            constructor(data) {
+                this._id = data._id;
+                this.title = data.title;
+                this.author = data.author;
+                this.numberOfPages = data.numberOfPages;
+                this.pagesRead = Math.min(data.pagesRead, data.numberOfPages);
+                this.status = data.status;
+                this.format = data.format;
+                this.price = data.price;
+                this.suggestedBy = data.suggestedBy || '';
+                this.finished = this.pagesRead >= this.numberOfPages;
+            }
+
+            getProgress() {
+                return this.numberOfPages === 0 ? 0 : Math.round((this.pagesRead / this.numberOfPages) * 100);
+            }
+
+            getId() {
+                return this._id;
+            }
+        }
+
+        class LibraryManager {
+            static STORAGE = 'reading_library_v2';
+
+            static async fetchAll() {
+                const saved = localStorage.getItem(this.STORAGE);
+                const data = saved ? JSON.parse(saved) : [];
+                return data.map(item => new ReadingBook(item));
+            }
+
+            static async create(bookData) {
+                const collection = await this.fetchAll();
+                const newEntry = {
+                    ...bookData,
+                    _id: Date.now().toString(),
+                    finished: bookData.pagesRead >= bookData.numberOfPages
+                };
+                collection.push(newEntry);
+                localStorage.setItem(this.STORAGE, JSON.stringify(collection.map(b => ({ ...b }))));
+                return new ReadingBook(newEntry);
+            }
+
+            static async remove(id) {
+                let collection = await this.fetchAll();
+                collection = collection.filter(book => book._id !== id);
+                localStorage.setItem(this.STORAGE, JSON.stringify(collection.map(b => ({ ...b }))));
+                return true;
+            }
+        }
+
+        // État de l'application
+        let libraryBooks = [];
+
+        // Charger la bibliothèque
+        async function loadLibrary() {
+            libraryBooks = await LibraryManager.fetchAll();
+            renderLibrary();
+            updateDashboard();
+        }
+
+        // Afficher les livres
+        function renderLibrary() {
+            const container = document.getElementById('libraryContainer');
+            const countElement = document.getElementById('bookCount');
+            
+            countElement.textContent = `${libraryBooks.length} book${libraryBooks.length !== 1 ? 's' : ''}`;
+            
+            if (libraryBooks.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 text-gray-400">
+                        <div class="text-6xl mb-4">📚</div>
+                        <p class="text-lg">Your library is empty</p>
+                        <p class="text-sm">Start adding books to track your reading!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const statusStyle = {
+                'Read': 'bg-green-100 text-green-700 border-green-300',
+                'Re-read': 'bg-blue-100 text-blue-700 border-blue-300',
+                'DNF': 'bg-red-100 text-red-700 border-red-300',
+                'Currently reading': 'bg-orange-100 text-orange-700 border-orange-300',
+                'Returned Unread': 'bg-gray-100 text-gray-700 border-gray-300',
+                'Want to read': 'bg-purple-100 text-purple-700 border-purple-300'
+            };
+
+            container.innerHTML = libraryBooks.map(book => {
+                const progress = book.getProgress();
+                return `
+                    <div class="bg-gradient-to-r from-gray-50 to-white border-2 border-gray-200 rounded-xl p-5 card-hover">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <h3 class="font-bold text-xl text-gray-800 mb-1">${book.title}</h3>
+                                <p class="text-gray-600 font-medium">by ${book.author}</p>
+                                ${book.suggestedBy ? `<p class="text-xs text-gray-500 mt-1">💡 Recommended by ${book.suggestedBy}</p>` : ''}
+                            </div>
+                            <button onclick="removeBook('${book._id}')" 
+                                class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold border-2 ${statusStyle[book.status]}">
+                                ${book.status}
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-700 border-2 border-gray-300">
+                                ${book.format}
+                            </span>
+                            ${book.finished ? '<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700 border-2 border-green-300">✓ Completed</span>' : ''}
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="flex justify-between text-sm font-semibold text-gray-700 mb-2">
+                                <span>${book.pagesRead} / ${book.numberOfPages} pages</span>
+                                <span class="text-purple-600">${progress}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div class="gradient-bg h-3 rounded-full transition-all duration-500" style="width: ${progress}%"></div>
+                            </div>
+                        </div>
+
+                        ${book.price > 0 ? `<p class="text-sm text-gray-600 font-medium">💰 Price: ${book.price.toFixed(2)} €</p>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Mettre à jour le dashboard
+        function updateDashboard() {
+            const finished = libraryBooks.filter(b => b.finished).length;
+            const totalPages = libraryBooks.reduce((sum, b) => sum + b.pagesRead, 0);
+            const inProgress = libraryBooks.filter(b => b.status === 'Currently reading').length;
+            const total = libraryBooks.length;
+
+            document.getElementById('statsFinished').textContent = finished;
+            document.getElementById('statsPagesRead').textContent = totalPages.toLocaleString();
+            document.getElementById('statsInProgress').textContent = inProgress;
+            document.getElementById('statsTotal').textContent = total;
+        }
+
+        // Soumettre le formulaire
+        document.getElementById('addBookForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const newBook = {
+                title: document.getElementById('bookTitle').value,
+                author: document.getElementById('bookAuthor').value,
+                numberOfPages: parseInt(document.getElementById('totalPages').value),
+                pagesRead: parseInt(document.getElementById('readPages').value),
+                status: document.getElementById('bookStatus').value,
+                format: document.getElementById('bookFormat').value,
+                price: parseFloat(document.getElementById('bookPrice').value),
+                suggestedBy: document.getElementById('recommendedBy').value
+            };
+
+            await LibraryManager.create(newBook);
+            await loadLibrary();
+            e.target.reset();
+            
+            // Animation de succès
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = '✅ Book Added!';
+            setTimeout(() => {
+                btn.textContent = '✨ Add to My Library';
+            }, 2000);
+        });
+
+        // Supprimer un livre
+        window.removeBook = async function(id) {
+            if (confirm('Are you sure you want to remove this book from your library?')) {
+                await LibraryManager.remove(id);
+                await loadLibrary();
+            }
+        };
+
+        // Initialisation
+        loadLibrary();
+    </script>
+</body>
+</html>
